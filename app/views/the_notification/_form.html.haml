@@ -2,8 +2,8 @@
 -# Post.model_name.human              => activerecord.models.post
 -# Post.human_attribute_name('title') => activerecord.attributes.post.title
 - if object.errors.any?
-  #error_explanation.error_explanation
-    %h2 При сохранении возникли следующие ошибки:
+  .error_explanation.alert.alert-danger
+    %h4= t "the_notification.form_errors"
     %ul
       - object.errors.map do |name, msgs|
         - name = object.class.human_attribute_name(name)
@@ -11,10 +11,10 @@
         -# TODO: rm this later
         - if !msgs.is_a?(Array)
           %li
-            %b= name
+            %strong= name
             = msgs
         - else
           - msgs.map do |msg|
             %li
-              %b= name
+              %strong= name
               = msg
