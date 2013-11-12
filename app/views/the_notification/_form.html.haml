@@ -1,0 +1,20 @@
+-# Error mesages
+-# Post.model_name.human              => activerecord.models.post
+-# Post.human_attribute_name('title') => activerecord.attributes.post.title
+- if object.errors.any?
+  #error_explanation.error_explanation
+    %h2 При сохранении возникли следующие ошибки:
+    %ul
+      - object.errors.map do |name, msgs|
+        - name = object.class.human_attribute_name(name)
+        -# why? because! https://github.com/thoughtbot/paperclip/issues/1292
+        -# TODO: rm this later
+        - if !msgs.is_a?(Array)
+          %li
+            %b= name
+            = msgs
+        - else
+          - msgs.map do |msg|
+            %li
+              %b= name
+              = msg
