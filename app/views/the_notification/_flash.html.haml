@@ -1,4 +1,0 @@
-- [:notice, :error, :alert].each do |level|
-  - unless flash[level].blank?
-    .alert.flash_msgs{ class: flash_class(level) }
-      = content_tag :p, flash[level]

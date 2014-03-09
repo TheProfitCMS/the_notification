@@ -1,6 +1,6 @@
 module TheNotification
   def self.configure(&block)
-    yield @config ||= TheStorages::Configuration.new
+    yield @config ||= TheNotification::Configuration.new
   end
 
   def self.config
