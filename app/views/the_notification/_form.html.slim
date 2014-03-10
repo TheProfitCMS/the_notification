@@ -1,21 +1,19 @@
 -# Error mesages
 -# Post.model_name.human              => activerecord.models.post
 -# Post.human_attribute_name('title') => activerecord.attributes.post.title
+- format = (format || TheNotification.config.default_type).to_s
+
 - if object.errors.any?
   - _errors = object.try(:localized_errors) || object.errors
-
-  - ntype = TheNotification.config.notifications_type.to_s
-  - if ntype == 'html'
+  - if format == 'html'
     .error_explanation.alert.alert-danger
       h4= t "the_notification.form_errors"
       ul
-        
         - _errors.map do |name, msgs|
           li
             strong= name
             |  
             = msgs
-
   - else
     = javascript_tag defer: :defer, type: "text/javascript" do
       | window.the_notifications = window.the_notifications || {};

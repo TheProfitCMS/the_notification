@@ -11,10 +11,10 @@ module TheNotification
   class Configuration
     include ActiveSupport::Configurable
 
-    config_accessor :notifications_type
+    config_accessor :default_type
   end
 
   configure do |config|
-    config.notifications_type = :html # :json
+    config.default_type = :html # :json
   end
 end
