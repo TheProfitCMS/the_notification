@@ -1,29 +1,125 @@
-# TheNotification
+## TheNotification
 
-TODO: Write a gem description
+Just add JSON on HTML notifications in your APP
 
-## Installation
+Designed for Bootstrap 3 style of for toastr notifications
 
-Add this line to your application's Gemfile:
+## How it works
 
-    gem 'the_notification'
+Just remove
 
-And then execute:
+```ruby
+<%= form_for(@resource) do |f| %>
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
 
-    $ bundle
+      <ul>
+      <% @resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-Or install it yourself as:
+  # ....
 
-    $ gem install the_notification
+<% end %>
+```
 
-## Usage
+with
+
+```ruby
+<%= form_for(@post) do |f| %>
+  <%= render partial: 'the_notification/form', locals: { object: @post } %>
+
+  # ....
+
+<% end %>
+```
+
+and add to Layout
+
+```ruby
+<body>    
+  <%= render partial: 'the_notification/flash' %>
+  <%= yield %>
+```
+
+*application.js*
+```js
+//= require the_notification/vendors/toastr
+//= require the_notification
+```
+
+*application.css*
+```js
+*= require bootstrap
+*= require the_notification/vendors/toastr
+```
+
+### HTML or JSON
+
+```erb
+<%= render partial: 'the_notification/flash' locals: { format: :html } %>
+<%= render partial: 'the_notification/form', locals: { object: @post, format: :html } %>
+```
+
+or
+
+```erb
+<%= render partial: 'the_notification/flash' locals: { format: :json } %>
+<%= render partial: 'the_notification/form', locals: { object: @post, format: :json } %>
+```
+
+*initializers/the_notification.rb*
+```ruby
+TheNotification.configure do |config|
+  config.default_type = :json # :html
+end
+```
+
+### Localized errors
+
+*models/user.rb*
+```ruby
+class Post < ActiveRecord::Base
+  include TheNotification::LocalizedErrors
+end
+```
+
+*config/locales/ru.yml*
+```
+activerecord:
+  models:
+    post: Публикация
+  attributes:
+    post:
+      title: "Загловок"
+```
+
+Now errors messages will looks like this:
+
+```
+Загловок: не может быть пустым
+```
+
+instead
+
+```
+Title: не может быть пустым
+```
+
+### Installation
+
+```ruby
+gem 'the_notification'
+```
+
+```sh
+$ bundle
+```
+
+### Usage
 
 TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
