@@ -10,11 +10,18 @@
       h4= t "the_notification.form_errors"
       ul
         - _errors.map do |name, msgs|
-          - msgs.each do |msg|
+          - if msgs.is_a? Array
+            - msgs.each do |msg|
+              li
+                strong= name
+                |  
+                = msg
+          - else
             li
               strong= name
               |  
-              = msg
+              = msgs
+
   - else
     = javascript_tag defer: :defer, type: "text/javascript" do
       | window.the_notifications = window.the_notifications || {};
