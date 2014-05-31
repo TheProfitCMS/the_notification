@@ -1,8 +1,13 @@
 @TheNotification = do ->
   show_errors: (errors) ->
-    for field, errs of errors
-      for err in errs
-        toastr.error "<b>#{ field }:</b> #{ err }"
+    if errors instanceof Array
+      for message in errors
+        if typeof message is 'string'
+          toastr.error "<b>#{ message }</b>"
+    else
+      for field, errs of errors
+        for err in errs
+          toastr.error "<b>#{ field }:</b> #{ err }"
 
   show_flash: (flash) ->
     fu =
@@ -24,8 +29,8 @@
 
   click_for_close_init: ->
     $('.flash_msgs, .error_explanation').on 'click', ->
-      $(@).slideUp(500)    
-  
+      $(@).slideUp(500)
+
   init: ->
     do @click_for_close_init
     do @show_notifications
