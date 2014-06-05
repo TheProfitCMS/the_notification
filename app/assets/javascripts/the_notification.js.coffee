@@ -1,24 +1,25 @@
 @TheNotification = do ->
   show_errors: (errors) ->
-    if errors instanceof Array
-      for message in errors
-        if typeof message is 'string'
-          toastr.error "<b>#{ message }</b>"
-    else
-      for field, errs of errors
-        for err in errs
-          toastr.error "<b>#{ field }:</b> #{ err }"
+    for field, errs of errors
+      for err in errs
+        toastr.error "<b>#{ field }:</b> #{ err }"
 
   show_flash: (flash) ->
     fu =
       notice:  'info'
+      errors:  'error'
       error:   'error'
       warning: 'warning'
       alert:   'warning'
 
     for level, msg of flash
       method = fu[level] || 'info'
-      toastr[method] msg
+
+      if msg instanceof Array
+        for _msg in msg
+          toastr[method] _msg
+      else
+        toastr[method] msg
 
   show_notifications: ->
     data = window.the_notifications
