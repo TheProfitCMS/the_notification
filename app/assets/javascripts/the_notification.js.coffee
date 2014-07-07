@@ -1,4 +1,7 @@
 @TheNotification = do ->
+  show_error: (error) ->
+    toastr.error(error) if error
+
   show_errors: (errors) ->
     for field, errs of errors
       for err in errs
