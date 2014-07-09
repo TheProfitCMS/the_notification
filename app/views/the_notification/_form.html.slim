@@ -3,7 +3,7 @@
 -# Post.human_attribute_name('title') => activerecord.attributes.post.title
 - format = (format || TheNotification.config.default_type).to_s
 
-- if object.errors.any?
+- if object.try(:errors).try(:any?)
   - _errors = object.try(:localized_errors) || object.errors
   - if format == 'html'
     .error_explanation.alert.alert-danger
@@ -14,12 +14,12 @@
             - msgs.each do |msg|
               li
                 strong= name
-                |  
+                |
                 = msg
           - else
             li
               strong= name
-              |  
+              |
               = msgs
 
   - else
