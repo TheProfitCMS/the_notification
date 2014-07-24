@@ -4,6 +4,7 @@ module TheNotification
 
     # include TheNotification::Errors
     
+    # @post.localized_errors(except: [:'comment.title'])
     def localized_errors opts = {}
       opts.symbolize_keys!
       excepts = opts.delete(:except)
