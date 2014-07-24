@@ -3,11 +3,16 @@ module TheNotification
     extend ActiveSupport::Concern
 
     # include TheNotification::Errors
-
-    def localized_errors
+    
+    def localized_errors opts = {}
+      opts.symbolize_keys!
+      excepts = opts.delete(:except)
+  
       errors.inject({}) do |hash, (k, v)|
-        k = self.class.human_attribute_name k
-        hash[k].blank? ? hash[k] = [v] : hash[k].push(v)
+        unless excepts.include?(k.to_sym)
+          k = self.class.human_attribute_name k
+          hash[k].blank? ? hash[k] = [v] : hash[k].push(v)
+        end
         hash
       end
     end
