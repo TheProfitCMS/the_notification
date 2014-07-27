@@ -3,12 +3,12 @@ module TheNotification
     extend ActiveSupport::Concern
 
     # include TheNotification::Errors
-    
+
     # @post.localized_errors(except: [:'comment.title'])
     def localized_errors opts = {}
       opts.symbolize_keys!
-      excepts = opts.delete(:except)
-  
+      excepts = opts.delete(:except) || []
+
       errors.inject({}) do |hash, (k, v)|
         unless excepts.include?(k.to_sym)
           k = self.class.human_attribute_name k
