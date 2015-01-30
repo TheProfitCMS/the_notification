@@ -61,14 +61,14 @@ and add to Layout
 ### HTML or JSON
 
 ```erb
-<%= render partial: 'the_notification/flash' locals: { format: :html } %>
+<%= render partial: 'the_notification/flash', locals: { format: :html } %>
 <%= render partial: 'the_notification/form', locals: { object: @post, format: :html } %>
 ```
 
 or
 
 ```erb
-<%= render partial: 'the_notification/flash' locals: { format: :json } %>
+<%= render partial: 'the_notification/flash', locals: { format: :json } %>
 <%= render partial: 'the_notification/form', locals: { object: @post, format: :json } %>
 ```
 
