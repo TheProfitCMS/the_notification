@@ -46,16 +46,19 @@ and add to Layout
   <%= yield %>
 ```
 
-*application.js*
-```js
-//= require the_notification/vendors/toastr
-//= require the_notification
-```
-
 *application.css*
 ```js
 *= require bootstrap
 *= require the_notification/vendors/toastr
+```
+
+*application.js*
+```js
+//= require the_notification/vendors/toastr
+//= require the_notification
+
+$ ->
+  TheNotification.show_notifications()
 ```
 
 ### HTML or JSON
