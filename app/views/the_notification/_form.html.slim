@@ -4,7 +4,7 @@
 - format = (format || TheNotification.config.default_type).to_s
 
 - if object.try(:errors).try(:any?)
-  - _errors = object.try(:localized_errors) || object.errors
+  - _errors = object.respond_to?(:localized_errors) ? object.localized_errors : object.errors
   - if format == 'html'
     .error_explanation.alert.alert-danger
       h4= t "the_notification.form_errors"
